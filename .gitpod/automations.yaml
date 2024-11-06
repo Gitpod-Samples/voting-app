@@ -1,0 +1,21 @@
+tasks:
+
+    seed:
+        name: Seed
+        description: Kicks off a seeding job
+        command: |
+            rm ~/.docker/config.json || true
+            docker-compose --profile seed up -d
+        triggeredBy:
+        - manual
+
+services:
+    start-app:
+        name: Start App
+        description: Start Docker Compose
+        commands:
+            start: |
+                rm ~/.docker/config.json || true
+                docker-compose up
+        triggeredBy:
+            - postEnvironmentStart
